@@ -12,6 +12,7 @@ import { FAQ } from './components/FAQ';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ChatWidget } from './components/ChatWidget';
+import  './index.css';
 
 const App: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
