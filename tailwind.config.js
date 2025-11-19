@@ -8,11 +8,14 @@ module.exports = {
                 mono: ["Fira Code", "monospace"],
             },
             backgroundImage: {
-                "grid-white": "url('data:image/svg+xml,%3csvg xmlns=…%3e')", // copy your long data URI
+                "grid-white": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.05)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e\")",
             },
             colors: {
                 background: "#030014",
                 surface: "#0f0c29",
+                primary: "#00f2ff", // Cyan
+                secondary: "#bd00ff", // Neon Purple
+                accent: "#ffffff",
             },
             animation: {
                 'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -24,6 +27,8 @@ module.exports = {
                 'spin-slow': 'spin 15s linear infinite',
                 'spin-reverse-slow': 'spin-reverse 15s linear infinite',
                 'orbit': 'orbit 20s linear infinite',
+                'shimmer': 'shimmer 2s linear infinite',
+                'scanline': 'scanline 8s linear infinite',
             },
             keyframes: {
                 fadeInUp: {
@@ -50,6 +55,14 @@ module.exports = {
                 orbit: {
                     '0%': { transform: 'rotate(0deg) translateX(100px) rotate(0deg)' },
                     '100%': { transform: 'rotate(360deg) translateX(100px) rotate(-360deg)' }
+                },
+                shimmer: {
+                    '0%': { backgroundPosition: '-200% 0' },
+                    '100%': { backgroundPosition: '200% 0' },
+                },
+                scanline: {
+                    '0%': { transform: 'translateY(-100%)' },
+                    '100%': { transform: 'translateY(100%)' },
                 }
             },
         },

@@ -12,7 +12,7 @@ import { FAQ } from './components/FAQ';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ChatWidget } from './components/ChatWidget';
-import  './index.css';
+import './index.css';
 
 const App: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -24,18 +24,18 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#030014] min-h-screen text-slate-200 selection:bg-indigo-500/30 selection:text-white relative overflow-hidden">
+    <div className="bg-background min-h-screen text-slate-200 selection:bg-primary/30 selection:text-white relative overflow-hidden">
       {/* Global Background Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-          {/* Grid Pattern */}
-          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
-          
-          {/* Ambient Glows */}
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[128px] animate-pulse-slow" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-[128px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
-          
-          {/* Vignette */}
-          <div className="absolute inset-0 bg-radial-gradient from-transparent to-[#030014]/90" />
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:30px_30px]" />
+
+        {/* Ambient Glows */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse-slow" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-[128px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
+
+        {/* Vignette */}
+        <div className="absolute inset-0 bg-radial-gradient from-transparent to-background/90" />
       </div>
 
       <div className="relative z-10">
@@ -53,9 +53,9 @@ const App: React.FC = () => {
           <Contact />
         </main>
         <Footer />
-        <ChatWidget 
-          isOpen={isChatOpen} 
-          setIsOpen={setIsChatOpen} 
+        <ChatWidget
+          isOpen={isChatOpen}
+          setIsOpen={setIsChatOpen}
           initialMessage={initialChatMsg}
         />
       </div>
