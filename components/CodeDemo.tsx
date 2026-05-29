@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Terminal, Code, Copy, Check, Wifi } from 'lucide-react';
+import { Terminal, Copy, Check, Wifi } from 'lucide-react';
 
 const codeTabs = [
   {
@@ -31,7 +31,7 @@ async function analyzeGrowth() {
     // Automatically sync to dashboard
     await client.dashboard.update(chunk);
   }
-}`
+}`,
   },
   {
     name: 'config.json',
@@ -53,13 +53,29 @@ async function analyzeGrowth() {
     "nlp": { "enabled": true, "model": "gpt-4-turbo" },
     "vision": { "enabled": true, "framerate": 60 },
     "sentiment": { "enabled": true, "realtime": true }
+  }
+}`,
   },
-  "rate_limiting": {
-    "strategy": "token_bucket",
-    "max_requests": 10000
-  }
-}`
-  }
+];
+
+const highlight = (line: string) =>
+  line
+    .replace(
+      /\b(import|from|const|async|function|await|return|export|class|for|of|new)\b/g,
+      '<span class="text-fuchsia-300">$&</span>'
+    )
+    .replace(/'[^']*'|"[^"]*"/g, '<span class="text-emerald-300">$&</span>')
+    .replace(/\/\/.*/g, '<span class="text-slate-500 italic">$&</span>')
+    .replace(
+      /\b(TrisoftClient|process|console|true|false)\b/g,
+      '<span class="text-amber-300">$&</span>'
+    );
+
+const features = [
+  'TypeScript by default',
+  '100% test coverage',
+  'Automated CI/CD pipelines',
+  'Dockerized environments',
 ];
 
 export const CodeDemo: React.FC = () => {
@@ -73,116 +89,105 @@ export const CodeDemo: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-[#030014] relative overflow-hidden">
-      {/* Technical Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          {/* Left Content */}
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/30 border border-indigo-500/30 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
-               <Terminal className="w-3 h-3" />
-               <span>Developer Experience</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6">
-              Clean code. <br/>
+    <section className="border-y border-slate-200 bg-white py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Copy */}
+          <div>
+            <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-700">
+              <Terminal className="h-3 w-3" />
+              Developer Experience
+            </span>
+            <h2 className="mb-5 text-3xl font-bold tracking-tight text-navy md:text-4xl">
+              Clean code.
+              <br />
               <span className="text-slate-400">Scalable architecture.</span>
             </h2>
-            <p className="text-lg text-slate-400 leading-relaxed mb-8">
-              We don't just build for today. We engineer typesafe, documented, and modular systems that your internal team will actually enjoy working with.
+            <p className="mb-8 text-lg leading-relaxed text-slate-600">
+              We don't just build for today. We engineer typesafe, documented, and modular
+              systems that your internal team will actually enjoy working with.
             </p>
             <ul className="space-y-4">
-                {['TypeScript by default', '100% Test Coverage', 'Automated CI/CD Pipelines', 'Dockerized Environments'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-slate-300">
-                        <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                            <Check className="w-3.5 h-3.5 text-indigo-400" />
-                        </div>
-                        {item}
-                    </li>
-                ))}
+              {features.map((item) => (
+                <li key={item} className="flex items-center gap-3 text-slate-700">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+                    <Check className="h-3.5 w-3.5" />
+                  </span>
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Right Code Block */}
-          <div className="relative group perspective-1000">
-            {/* Glow Effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-            
-            <div className="relative rounded-xl bg-[#0f0c29] border border-white/10 shadow-2xl overflow-hidden transform transition-transform duration-500 hover:rotate-x-1 hover:rotate-y-1">
-                {/* Window Bar */}
-                <div className="flex items-center justify-between px-4 py-3 bg-[#1e1b2e] border-b border-white/5">
-                    <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
-                    </div>
-                    <div className="flex gap-1 bg-black/20 p-1 rounded-lg">
-                        {codeTabs.map((tab, i) => (
-                            <button
-                                key={i}
-                                onClick={() => setActiveTab(i)}
-                                className={`px-3 py-1 rounded text-xs font-medium transition-all ${
-                                    activeTab === i 
-                                    ? 'bg-indigo-600 text-white shadow-sm' 
-                                    : 'text-slate-500 hover:text-slate-300'
-                                }`}
-                            >
-                                {tab.name}
-                            </button>
-                        ))}
-                    </div>
-                    <button onClick={handleCopy} className="text-slate-500 hover:text-white transition-colors">
-                        {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                    </button>
-                </div>
+          {/* Code panel */}
+          <div className="overflow-hidden rounded-xl border border-slate-800 bg-[#0f1729] shadow-float">
+            <div className="flex items-center justify-between border-b border-white/5 bg-[#0b1120] px-4 py-3">
+              <div className="flex gap-2">
+                <span className="h-3 w-3 rounded-full bg-white/20" />
+                <span className="h-3 w-3 rounded-full bg-white/20" />
+                <span className="h-3 w-3 rounded-full bg-white/20" />
+              </div>
+              <div className="flex gap-1 rounded-lg bg-black/30 p-1">
+                {codeTabs.map((tab, i) => (
+                  <button
+                    key={tab.name}
+                    type="button"
+                    onClick={() => setActiveTab(i)}
+                    className={`rounded px-3 py-1 text-xs font-medium transition-colors ${
+                      activeTab === i
+                        ? 'bg-brand-600 text-white'
+                        : 'text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    {tab.name}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={handleCopy}
+                aria-label="Copy code"
+                className="text-slate-400 transition-colors hover:text-white"
+              >
+                {copied ? (
+                  <Check className="h-4 w-4 text-emerald-400" />
+                ) : (
+                  <Copy className="h-4 w-4" />
+                )}
+              </button>
+            </div>
 
-                {/* Code Area - Fixed Height */}
-                <div className="p-6 overflow-auto h-[420px] custom-scrollbar bg-[#0d0b1e]">
-                    <pre className="font-mono text-sm leading-relaxed">
-                        <code className="block">
-                            {codeTabs[activeTab].code.split('\n').map((line, i) => (
-                                <div key={i} className="table-row group/line hover:bg-white/5 w-full">
-                                    <span className="table-cell text-slate-700 select-none pr-6 text-right w-8 border-r border-white/5 group-hover/line:text-slate-500 transition-colors">{i + 1}</span>
-                                    <span 
-                                      className="table-cell pl-4"
-                                      dangerouslySetInnerHTML={{
-                                          __html: line
-                                            .replace(/import|from|const|async|function|await|return|export|class/g, '<span class="text-fuchsia-400">$&</span>')
-                                            .replace(/'[^']*'/g, '<span class="text-green-400">$&</span>')
-                                            .replace(/"[^"]*"/g, '<span class="text-green-400">$&</span>')
-                                            .replace(/\/\/.*/g, '<span class="text-slate-500 italic">$&</span>')
-                                            .replace(/TrisoftClient|process|console|Promise/g, '<span class="text-yellow-300">$&</span>')
-                                            .replace(/new|void|true|false/g, '<span class="text-indigo-400">$&</span>')
-                                            .replace(/: \["/g, ': <span class="text-white">["</span>') // fix JSON array start
-                                      }}
-                                    />
-                                </div>
-                            ))}
-                        </code>
-                    </pre>
-                </div>
-
-                {/* Status Bar */}
-                <div className="bg-[#1e1b2e] border-t border-white/5 px-4 py-2 flex justify-between items-center text-[10px] text-slate-500 font-mono select-none">
-                    <div className="flex gap-4">
-                        <span className="uppercase text-slate-400 font-bold">{codeTabs[activeTab].language}</span>
-                        <span>UTF-8</span>
-                        <span>4 Spaces</span>
+            <div className="h-[420px] overflow-auto bg-[#0d1424] p-6">
+              <pre className="font-mono text-sm leading-relaxed">
+                <code className="block">
+                  {codeTabs[activeTab].code.split('\n').map((line, i) => (
+                    <div key={i} className="table-row">
+                      <span className="table-cell w-8 select-none border-r border-white/5 pr-4 text-right text-slate-600">
+                        {i + 1}
+                      </span>
+                      <span
+                        className="table-cell pl-4 text-slate-200"
+                        dangerouslySetInnerHTML={{ __html: highlight(line) || '&nbsp;' }}
+                      />
                     </div>
-                    <div className="flex gap-4 items-center">
-                        <span>Ln {codeTabs[activeTab].code.split('\n').length}, Col 1</span>
-                        <div className="flex items-center gap-1.5 text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full">
-                            <Wifi className="w-3 h-3" />
-                            <span className="font-bold">Connected</span>
-                        </div>
-                    </div>
-                </div>
+                  ))}
+                </code>
+              </pre>
+            </div>
 
+            <div className="flex items-center justify-between border-t border-white/5 bg-[#0b1120] px-4 py-2 font-mono text-[10px] text-slate-500">
+              <div className="flex gap-4">
+                <span className="font-bold uppercase text-slate-400">
+                  {codeTabs[activeTab].language}
+                </span>
+                <span>UTF-8</span>
+              </div>
+              <div className="flex items-center gap-1.5 rounded-full bg-brand-500/10 px-2 py-0.5 text-brand-300">
+                <Wifi className="h-3 w-3" />
+                <span className="font-bold">Connected</span>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

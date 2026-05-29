@@ -1,93 +1,130 @@
 import React, { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
+
+const inputClasses =
+  'w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-navy placeholder-slate-400 transition-colors focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/20';
+
+const contactDetails = [
+  { icon: Mail, label: 'hello@trisoft.co.za', href: 'mailto:hello@trisoft.co.za' },
+  { icon: Phone, label: '+27 11 123 4567', href: 'tel:+27111234567' },
+  { icon: MapPin, label: 'Sandton, Johannesburg', href: undefined },
+];
 
 export const Contact: React.FC = () => {
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thanks for contacting Trisoft! We'll be in touch shortly.");
+    setSubmitted(true);
     setFormState({ name: '', email: '', message: '' });
+    setTimeout(() => setSubmitted(false), 5000);
   };
 
   return (
-    <div id="contact" className="py-32 bg-[#030014] relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-      <div className="absolute right-0 top-1/4 w-[30vw] h-[30vw] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">Ready to transform?</h2>
-            <p className="text-slate-400 text-lg">Start your project with Trisoft today.</p>
+    <section id="contact" className="bg-canvas py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-navy md:text-4xl">
+            Ready to transform?
+          </h2>
+          <p className="text-lg text-slate-600">Start your project with Trisoft today.</p>
         </div>
 
-        <div className="rounded-2xl p-8 md:p-12 border border-white/10 shadow-2xl bg-[#0f0c29]/50 backdrop-blur-xl relative overflow-hidden group">
-            {/* Glass shine effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-50 pointer-events-none"></div>
-            
-            <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                    <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-slate-400 ml-1">Name</label>
-                    <input
-                    type="text"
-                    id="name"
-                    required
-                    value={formState.name}
-                    onChange={(e) => setFormState({...formState, name: e.target.value})}
-                    className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-4 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm backdrop-blur-sm hover:bg-black/30"
-                    placeholder="John Doe"
-                    />
-                </div>
-                <div className="space-y-2">
-                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-slate-400 ml-1">Email</label>
-                    <input
-                    type="email"
-                    id="email"
-                    required
-                    value={formState.email}
-                    onChange={(e) => setFormState({...formState, email: e.target.value})}
-                    className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-4 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm backdrop-blur-sm hover:bg-black/30"
-                    placeholder="john@company.com"
-                    />
-                </div>
-              </div>
-
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lift md:p-12">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <label htmlFor="message" className="text-xs font-bold uppercase tracking-wider text-slate-400 ml-1">How can we help?</label>
-                <textarea
-                  id="message"
-                  rows={4}
+                <label
+                  htmlFor="name"
+                  className="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
                   required
-                  value={formState.message}
-                  onChange={(e) => setFormState({...formState, message: e.target.value})}
-                  className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-4 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none text-sm backdrop-blur-sm hover:bg-black/30"
-                  placeholder="Tell us about your project goals..."
+                  value={formState.name}
+                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                  className={inputClasses}
+                  placeholder="John Doe"
                 />
               </div>
-
-              <button 
-                type="submit"
-                className="w-full bg-white text-black hover:bg-indigo-50 font-bold py-4 rounded-lg transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-              >
-                Send Message
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </form>
-            
-            <div className="mt-10 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 gap-4 font-mono relative z-10">
-                <p>hello@trisoft.co.za</p>
-                <p>+27 11 123 4567</p>
-                <p>Sandton, Johannesburg</p>
+              <div className="space-y-2">
+                <label
+                  htmlFor="email"
+                  className="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  value={formState.email}
+                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                  className={inputClasses}
+                  placeholder="john@company.com"
+                />
+              </div>
             </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="message"
+                className="block text-xs font-bold uppercase tracking-wider text-slate-500"
+              >
+                How can we help?
+              </label>
+              <textarea
+                id="message"
+                rows={4}
+                required
+                value={formState.message}
+                onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                className={`${inputClasses} resize-none`}
+                placeholder="Tell us about your project goals..."
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 py-3.5 font-semibold text-white shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+            >
+              Send Message
+              <ArrowRight className="h-5 w-5" />
+            </button>
+
+            {submitted && (
+              <p
+                role="status"
+                className="rounded-lg bg-emerald-50 px-4 py-3 text-center text-sm font-medium text-emerald-700"
+              >
+                Thanks for contacting Trisoft! We'll be in touch shortly.
+              </p>
+            )}
+          </form>
+
+          <div className="mt-10 flex flex-col gap-4 border-t border-slate-100 pt-8 text-sm text-slate-600 sm:flex-row sm:justify-between">
+            {contactDetails.map(({ icon: Icon, label, href }) => {
+              const content = (
+                <span className="flex items-center gap-2">
+                  <Icon className="h-4 w-4 text-brand-600" />
+                  {label}
+                </span>
+              );
+              return href ? (
+                <a key={label} href={href} className="transition-colors hover:text-navy">
+                  {content}
+                </a>
+              ) : (
+                <span key={label}>{content}</span>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
